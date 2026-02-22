@@ -1,39 +1,27 @@
 const fs = require('node:fs');
-const { distance } = require('./mathHelpers');
+// const { distance } = require('./mathHelpers');
 
 function processInput(x1, y1, x2, y2) {
     const content = `${x1} ${y1} ${x2} ${y2}`;
     
-    // Create dataPoints folder if it doesn't exist
+    // Create dataPoints folder
     if (!fs.existsSync('dataPoints')) {
-        fs.mkdir('dataPoints', (err) => {
-            if (err) {
-                console.error(err);
-            }
-        });
+        fs.mkdirSync('dataPoints');
     }
     
-    // Write to points.txt (async)
-    fs.writeFile('dataPoints/points.txt', content, (err) => {
-        if (err) {
-            console.error(err);
-        } else {
-            console.log('Content saved through console.');
-            
-            // Calculate and append distance AFTER write completes
-            const dist = distance(x1, y1, x2, y2);
-            const distanceMessage = `\nThe distance between your two points: (${x1},${y1}), (${x2},${y2}) is ${dist}`;
-            
-            fs.appendFile('dataPoints/points.txt', distanceMessage, (err) => {
-                if (err) {
-                    console.error(err);
-                }
-            });
-        }
-    });
+    // Write to points.txt
+    fs.writeFileSync('dataPoints/points.txt', content);
+    
+    console.log('Content');
+    
+    // Calculate and append distance
+    const dist = distance(x1, y1, x2, y2);
+    const distanceMessage = `\nThe distance between the two points: (${x1},${y1}), (${x2},${y2}) is ${dist}`;
+    
+    fs.appendFileSync('dataPoints/points.txt', distanceMessage);
 }
 
-// Get command line arguments (skip first two: node and script name)
+// Get command line arguments
 const args = process.argv.slice(2);
 
 if (args.length === 4) {
