@@ -1,0 +1,36 @@
+
+
+<body>
+    <!-- Use the network in the inspect tools to resubmit the form -->
+
+    <!-- 
+    When you send button, how does it know which endpoint to send it to? 
+        1. Form wonders if it should send it to a GET or POST (doesn't know which method)
+        Provide Method in form 
+        action -> which function do you want to hit ("/endpoint")
+            To test: There is a console.log in app.ts under the assignments endpoint to check
+    
+    Every form needs a method and an action
+        Default: if you don't provide a method, it defaults to GET 
+        Ergo you MUST set the method of the post 
+
+    Form names -> I want this sent over to the server
+
+    -->
+    <form method="post" action="/assignments">
+        <input type="text">
+        <button>Create</button>
+    </form>
+
+    <hr>
+    <ul>
+        <!-- 
+            % is invisible logic - Run this logic but don't show this to the user
+            %= means show this to the user
+        -->
+        <% assignments.forEach((assignment) => { %>
+            <li><%= assignment.title %></li>
+        <% }) %>
+    </ul>
+
+</body>
